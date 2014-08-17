@@ -1,0 +1,12 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    clockworksms (1.2.0)
+      nokogiri (~> 1.5.2)
+    nokogiri (1.5.11)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  clockworksms
