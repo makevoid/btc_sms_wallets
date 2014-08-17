@@ -1,13 +1,5 @@
-CURRENCY = {
-  mbtc: 5,
-  btc:  8,
-}
+require_relative "util/monkeypatches"
 
-class Numeric
-  def to_mbtc
-    self * (10 ** -CURRENCY[:mbtc])
-  end
-end
 
 class Api # btc api
 

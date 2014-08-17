@@ -29,10 +29,11 @@ Site pages
 
 
 
-  Donate
+  Donation based service
 
   Minimum first deposit?: 1 Eur ?
 
+  Initial pool of platform sms credits: 50 eur?
 
 
   ------
