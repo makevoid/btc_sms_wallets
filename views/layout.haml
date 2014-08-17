@@ -1,0 +1,15 @@
+!!! 5
+%html
+  - TITLE = "BtcSmsWallets"
+  %head
+    %title= TITLE
+    %link{ rel: "stylesheet", href: "/css/main.css" }
+    =# partial :metas
+
+  %body
+    #container
+      %header
+        %h1= TITLE
+      %nav
+      %section.content= yield
+    %script{ type: "text/javascript", src: "/js/app.js" }
