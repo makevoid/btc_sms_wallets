@@ -27,6 +27,12 @@ Site pages
 
   ----
 
+  Even if this project is not multisig
+  Sms should be a secure not hacked media
+  In any case don't put many BTC in beta software :)
+
+  ----
+
 
 
   Donation based service

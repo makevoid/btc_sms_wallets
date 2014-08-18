@@ -1,1 +1,12 @@
-Hello world!
+%h1 Login/Register
+
+%p Enter your cellphone number:
+%form{ action: "/login", method: :post }
+  %input{ name: "number", type: "text", placeholder: "39 349 123456" }
+  %input{ type: "submit", value: "Enter" }
+
+
+%h5 note:
+
+%p existing accounts:
+%input{ type: "text", disabled: true, value: "39 349 1598100" }

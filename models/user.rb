@@ -1,10 +1,11 @@
 class User
+  include DataMapper::Resource
 
   # authentication
 
   property :id, Serial
   property :country_code, String, length: 4
-  property :sms_number,   String, length: 20
+  property :number,       String, length: 20, unique: true # cellphone number
   property :address,      String
   property :created_at,   DateTime
 
@@ -12,9 +13,9 @@ class User
   property :balance_cached,   Integer # satoshis
 
   before :create do
-    self.created_at = Time.now
+    self.created_at = Time.now # update_created_at
+    self.address = Wallet.generate_new_address
   end
-
 
   def balance
     BChain.balance self.address
@@ -23,6 +24,15 @@ class User
   def update_balance_cached
     self.balance_cached = balance
     save
+  end
+
+  # login
+
+  def self.login_or_create(number)
+    unless user = User.first( number: number )
+      user = User.create number: number
+    end
+    user
   end
 
 end

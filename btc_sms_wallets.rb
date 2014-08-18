@@ -5,8 +5,13 @@ require "#{path}/config/env.rb"
 class BtcSmsWallets < Sinatra::Base
   include Voidtools::Sinatra::ViewHelpers
 
-  get "/" do
-    haml :index
+  APP_ENV = (ENV["RACK_ENV"] || :development).to_sym
+
+  if APP_ENV == :development
+    get "/migrate" do
+      DataMapper.auto_migrate!
+      redirect "/"
+    end
   end
 end
 

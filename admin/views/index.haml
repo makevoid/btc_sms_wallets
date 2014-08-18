@@ -1,0 +1,20 @@
+:ruby
+  users = User.all
+  # users.attach label: "#{id} - #{number} - #{address}"
+
+%h1 Users
+
+- for user in users
+  %div
+    =# user.label
+    -# #{"#{user.id} - #{user.number} - #{user.address}"}
+    #{"id: #{user.id} - number: #{user.number} - address: #{user.address || "problem?"}"}
+
+    - data_delete = "User.get(#{user.id}).destroy"
+    -# %a{ href: "/", :"data-execute" => data_delete } DELETE
+    %form{ action: "/admin/data_delete", method: "post", style: "display: inline-block" }
+      %input{ type: "hidden", name: "data_execute", value: data_delete }
+      %input{ type: "submit", value: "del"  }
+      -# %submit del
+
+

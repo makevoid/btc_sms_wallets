@@ -4,6 +4,13 @@ source "http://rubygems.org"
 
 gem "clockworksms", require: "clockwork"
 
+# db
+
+gem "dm-core"
+gem "dm-sqlite-adapter"
+# gem "dm-mysql-adapter" # or postgres-adapter, for the final version
+gem "dm-migrations"
+
 
 # web
 
