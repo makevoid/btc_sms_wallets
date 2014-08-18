@@ -1,1 +1,1 @@
-console.log "hello coffee!"
+console.log "SERVER SENT EVENTS"

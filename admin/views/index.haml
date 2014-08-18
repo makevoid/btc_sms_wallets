@@ -1,13 +1,14 @@
 :ruby
   users = User.all
   # users.attach label: "#{id} - #{number} - #{address}"
+  transactions = Transaction.all(order: [:sms_id.desc])
 
 %h1 Seed
 
 %pre
   = Wallet.seed
 
-%h1 Users
+%h1 Users (#{User.count})
 
 - for user in users
   %div
@@ -21,5 +22,13 @@
       %input{ type: "hidden", name: "data_execute", value: data_delete }
       %input{ type: "submit", value: "del"  }
       -# %submit del
+
+
+%h1 Transactions (#{Transaction.count})
+
+%p (received messages?)
+
+- for transaction in transactions
+  = transaction
 
 

@@ -14,8 +14,8 @@ class User
   property :balance_cached,   Integer # satoshis
 
   before :create do
-    self.number_label = self.number 
-    self.number = self.number.gsub(/"\s+", ''/)
+    self.number_label = self.number
+    self.number = self.number.gsub(/\s+/, '')
     self.created_at = Time.now # update_created_at
   end
 
