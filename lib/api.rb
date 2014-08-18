@@ -9,21 +9,21 @@ class Api # btc api
 
   def balance_self
     bal = balance @address
-    Sms.send Views.balance bal
+    Sms.deliver Views.balance bal
   end
 
   def balance(address)
     bal = BChain.balance address
-    Sms.send Views.balance bal
+    Sms.deliver Views.balance bal
   end
 
-  def send(amount, number)
-    Sms.send Views.send_confirmation amount, number
+  def deliver(amount, number)
+    Sms.deliver Views.send_confirmation amount, number
   end
 
   def history # (self)
     history = BChain.history address
-    Sms.send Views.history history
+    Sms.deliver Views.history history
   end
 
   module Views
@@ -49,18 +49,5 @@ class Api # btc api
     end
 
   end
-
-  module Parser
-    def self.parse
-      {
-        balance:      /BALANCE/,
-        balance_self: /BALANCE\s+(\d+)/, # support also btc addresses
-        send:         /SEND\s+(\w+)\s+TO\s+(\d+)/,
-        history:      /HISTORY/,
-        # TODO: pin protection
-      }
-    end
-  end
-
 
 end

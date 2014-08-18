@@ -6,6 +6,7 @@ class User
   property :id, Serial
   property :country_code,   String, length: 4
   property :number,         String, length: 20, unique: true # cellphone number
+  property :number_label,   String, length: 20
   property :address_cache,  String
   property :created_at,     DateTime
 
@@ -13,6 +14,8 @@ class User
   property :balance_cached,   Integer # satoshis
 
   before :create do
+    self.number_label = self.number 
+    self.number = self.number.gsub(/"\s+", ''/)
     self.created_at = Time.now # update_created_at
   end
 

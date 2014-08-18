@@ -3,15 +3,15 @@ require "clockwork" # gem 'clockworksms'
 SMS_CLOCKWORK_KEY = File.read( File.expand_path "~/.clockwork" )
 
 class Sms
-  def self.send(number, message)
-    new(number).send(message)
+  def self.deliver(number, message)
+    new(number).deliver(message)
   end
 
   def initialize(number)
     @number = number
   end
 
-  def send(message_text)
+  def deliver(message_text)
     clockwork_send message_text
     # other sms api
     # texmagic_send message_text
