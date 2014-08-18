@@ -4,7 +4,7 @@
 %section.address
   %h1 Address
 
-  %img
-  [QR CODE]
+  %p
+    %img [QR CODE]
 
-  %input{ type: "text", disabled: true }
+  %input{ type: "text", disabled: true, value: @user.address }

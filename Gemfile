@@ -2,7 +2,12 @@ source "http://rubygems.org"
 
 # core
 
+## wallet
+gem "money-tree", github: "BitVault/money-tree"
+
+## sms
 gem "clockworksms", require: "clockwork"
+
 
 # db
 

@@ -4,7 +4,9 @@ class BtcSmsWallets < Sinatra::Base
   end
 
   def number_filtered
-    params[:number]
+    num = params[:number]
+    raise "NumberMalformed" if num == '' || num.nil? || num.size < 7
+    num
   end
 
   post "/login" do
@@ -16,9 +18,12 @@ class BtcSmsWallets < Sinatra::Base
     redirect "/account"
   end
 
-
   get "/account" do
-    user = User.get session[:user_id]
+    uid = session[:user_id]
+    return "haml :error_page | user session not found" unless uid # or use halt
+    # return(redirect "/")
+    @user = User.get uid
+    return "haml :error_page | user not found" unless @user
 
     haml :account
   end

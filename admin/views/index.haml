@@ -2,6 +2,11 @@
   users = User.all
   # users.attach label: "#{id} - #{number} - #{address}"
 
+%h1 Seed
+
+%pre
+  = Wallet.seed
+
 %h1 Users
 
 - for user in users

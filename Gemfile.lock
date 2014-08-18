@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/BitVault/money-tree.git
+  revision: 00cce46fb58ffa337895c96150942db02f42e525
+  specs:
+    money-tree (0.8.7)
+      ffi
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -18,6 +25,7 @@ GEM
       do_sqlite3 (~> 0.10.6)
     do_sqlite3 (0.10.14)
       data_objects (= 0.10.14)
+    ffi (1.9.3)
     haml (4.0.5)
       tilt
     json (1.8.1)
@@ -43,6 +51,7 @@ DEPENDENCIES
   dm-sqlite-adapter
   haml
   json
+  money-tree!
   sass
   sinatra
   voidtools

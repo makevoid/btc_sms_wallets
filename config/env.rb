@@ -12,6 +12,10 @@ module Utils
 end
 include Utils
 
+
+require_all "#{path}/lib"
+
+
 env = ENV["RACK_ENV"] || "development"
 DataMapper.setup :default, "sqlite://#{path}/db/sms_wallets_#{env}.sqlite"
 # DataMapper.setup :default, "mysql://localhost/btc_sms_wallets_#{env}"
