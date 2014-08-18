@@ -18,7 +18,6 @@ class WalletsAdmin < Sinatra::Base
       @message = api.message_status(p[:message_id])
       @text = message.text.strip
       @from = message.from
-      @user = User.find(number: @from)
           
       p = params
       @attributes = { sms_id: p[:message_id], sent_at: p[:timestamp], 
@@ -26,11 +25,15 @@ class WalletsAdmin < Sinatra::Base
     end
     
     def handle
+      @user = User.find(number: @from)
+      return view("USER NOT FOUND - REGISTER YOURSELF") unless @user
+        
       # TODO: send debugging reply "BALANCE max" => "the number was incorrect"
       case @message
       when /^BALANCE/i then balance
       when /^SEND/i    then send
       when /^HISTORY/i then history
+      end
     end
     
     REGEX = {
@@ -60,6 +63,10 @@ class WalletsAdmin < Sinatra::Base
       match = @message.match REGEX[:deliver]
       return view("SEND REQUEST MALFORMED") unless match
       
+      wallet = Wallet.get @user
+      return view("")
+      balance = wallet.balance
+      ""
     end
     
     def history
@@ -70,8 +77,8 @@ class WalletsAdmin < Sinatra::Base
     
     private
     
-    def view
-      
+    def view(message)
+      "#{message} [debug...]"
     end
     
   end

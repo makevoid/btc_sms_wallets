@@ -9,8 +9,6 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.3.6)
-    clockworksms (1.2.0)
-      nokogiri (~> 1.5.2)
     data_objects (0.10.14)
       addressable (~> 2.1)
     dm-core (1.2.1)
@@ -28,8 +26,11 @@ GEM
     ffi (1.9.3)
     haml (4.0.5)
       tilt
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     json (1.8.1)
-    nokogiri (1.5.11)
+    multi_xml (0.5.5)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -38,6 +39,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    textmagic (0.5.0)
+      httparty (>= 0.5.2)
     tilt (1.4.1)
     voidtools (0.3.1)
 
@@ -45,7 +48,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  clockworksms
   dm-core
   dm-migrations
   dm-sqlite-adapter
@@ -54,4 +56,5 @@ DEPENDENCIES
   money-tree!
   sass
   sinatra
+  textmagic
   voidtools

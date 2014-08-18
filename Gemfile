@@ -6,8 +6,8 @@ source "http://rubygems.org"
 gem "money-tree", github: "BitVault/money-tree"
 
 ## sms
-gem "clockworksms", require: "clockwork"
-
+# gem "clockworksms", require: "clockwork"
+gem "textmagic"
 
 # db
 
