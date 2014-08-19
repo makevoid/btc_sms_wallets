@@ -8,7 +8,10 @@ class Wallet
   # WALLET = MoneyTree::Node.from_serialized_address NON_MAIN_ADDRESS # higher security level, more info: https://github.com/wink/money-tree#serialized-addresses
 
   attr_reader :user_id
-  attr_reader :wallet
+
+  def wallet
+    @@wallet
+  end
   alias :w :wallet
 
   def initialize(user_id: user_id, seed: nil)
@@ -37,7 +40,7 @@ class Wallet
   end
 
   def self.node_get(user_id)
-    hdw(user_id: user_id).node_get
+    self.hdw(user_id: user_id).node_get
   end
 
   # instance methods
