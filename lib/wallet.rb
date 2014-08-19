@@ -13,7 +13,7 @@ class Wallet
 
   def initialize(user_id: user_id, seed: nil)
     @user_id = user_id
-    @wallet = WALLET.new  seed_hex: seed
+    @@wallet ||= WALLET.new  seed_hex: seed
   end
 
   def self.hdw(user_id: user_id)
@@ -21,15 +21,13 @@ class Wallet
     path = File.expand_path "~/.btc_sms_wallet"
     seed = File.read path if File.exist? path
 
-    @@hdw ||= if seed
+    if seed
       new seed: seed,  user_id: user_id
     else
       hdw = new user_id: user_id
       File.open(path, "w"){ |file| file.write hdw.seed }
       hdw
     end
-
-    @@hdw
   end
 
   # forwarders

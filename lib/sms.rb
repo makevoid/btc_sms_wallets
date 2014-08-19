@@ -12,8 +12,10 @@ GATEWAY_NUMBER = "393456645473" # shared textmagic
 # https://www.textmagic.com/app/api?username=makevoid&password=RK5lAuzCsX&cmd=send&text=Test+message&phone=393491598100&unicode=0
 
 class Sms
-
-  LAST_SMS_ID = defined?(Transaction) ? Transaction.last_sms_id : nil
+  
+  LAST_SMS_ID_MANUAL = 5982173
+  # LAST_SMS_ID_MANUAL = 5982179
+  LAST_SMS_ID = (defined?(Transaction) ? Transaction.last_sms_id : nil) || LAST_SMS_ID_MANUAL
 
   def self.deliver(number, message)
     new.deliver(number, message)
