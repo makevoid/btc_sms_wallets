@@ -8,6 +8,9 @@ SMS_TEXTMAGIC_USERNAME = "makevoid"
 GATEWAY_NUMBER = "393456645473" # shared textmagic
 # GATEWAY_NUMBER = "447937946609" # bought from textmagic, (uk) global inbound number
 
+
+# https://www.textmagic.com/app/api?username=makevoid&password=RK5lAuzCsX&cmd=send&text=Test+message&phone=393491598100&unicode=0
+
 class Sms
 
   LAST_SMS_ID = defined?(Transaction) ? Transaction.last_sms_id : nil
@@ -37,7 +40,7 @@ class Sms
     @number = number_to
     # clockwork_send message_text
     # (other sms api)
-    texmagic_send message_text
+    textmagic_send message_text
   end
 
   def receive(sms_id=LAST_SMS_ID)
@@ -52,7 +55,7 @@ class Sms
 
   def textmagic_send(message_text)
     # TODO:
-    sms_id = textmagic_api.send 'Hi Wilma!', '999314159265'
+    sms_id = textmagic_api.send message_text, @number
   end
 
   def textmagic_receive(sms_id)

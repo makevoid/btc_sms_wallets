@@ -1,19 +1,25 @@
 class ExtApi # external json api
-  # net/http
-  # json
+  require "net/http"
+  require "json"
 
-  def get(url)
-
+  def self.get(url)
+    resp = Net::HTTP.get_response URI.parse url
+    JSON.parse resp.body
   end
 end
 
 class BChain
 
-  HOST = "http ... blockchain.info ..."
+  HOST = "http://blockchain.info"
 
   def self.balance(address)
-    bc_info = ""
-    ExtApi.get()
+    address = ExtApi.get url "/address/#{address}"
+    # other infos: {"n_tx"=>0, "total_received"=>0, "total_sent"=>0, "txs"=>[]}
+    (address["final_balance"] * 10**-8).to_f
+  end
+
+  def self.url(url_part)
+    "#{HOST}#{url_part}?format=json"
   end
 
 end

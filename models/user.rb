@@ -29,7 +29,10 @@ class User
   end
 
   def balance
-    BChain.balance self.address
+    bal = BChain.balance self.address
+    self.balance_cached = bal
+    self.save
+    bal
   end
 
   def update_balance_cached

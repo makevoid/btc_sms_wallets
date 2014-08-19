@@ -7,7 +7,7 @@ gem "money-tree", github: "BitVault/money-tree"
 
 ## sms
 # gem "clockworksms", require: "clockwork"
-gem "textmagic"
+gem "textmagic", github: "makevoid/textmagic"
 
 # db
 
