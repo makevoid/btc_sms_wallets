@@ -1,6 +1,6 @@
 # todo: rename in SmsGatewayCallback ?
 
-class Callback
+class GatewayCallback
   def initialize(params)
     # https://github.com/bobes/textmagic/blob/master/lib/textmagic/api.rb#L112
     @message = api.message_status(p[:message_id])

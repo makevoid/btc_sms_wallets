@@ -32,4 +32,8 @@ group :development do
   #gem "guard-sass",         require: false
   #gem "guard-coffeescript", require: false
   #gem "guard-livereload",   require: false
+
+  gem "rspec-core"
+  gem "rspec-mocks"
+  gem "rspec-expectations"
 end
