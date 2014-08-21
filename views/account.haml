@@ -8,15 +8,26 @@
     %img [QR CODE]
 
   %input{ type: "text", disabled: true, value: @user.address }
-  
-  
+
+
 
 %section.commands
   %h1 Commands
-  
+
   %p BALANCE
-  
+  %p > your balance
+
   %p SEND amount TO user
 
-  / SEND 0.1 BTC TO 349 1234567
-  / SEND 1mBTC TO makevoid  
+  %p more:
+  %p SEND 0.0001 BTC TO 393491598100
+  %p SEND 0.1 BTC TO 349 1234567
+  %p SEND 1mBTC TO makevoid
+
+
+  %p ADDRESS
+  %p > your address
+
+  %p DELETE AND CASHOUT TO address ?
+  %p > your private key
+  %p > you get a new address

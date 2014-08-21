@@ -10,12 +10,13 @@ end
 
 describe GatewayCallback do
 
-  DEFAULT_PARAMS = {"message_id"=>"139173", "text"=>"Callback URL test for user makevoid", "timestamp"=>"1408395151", "from"=>"9991234567"}
+  DEFAULT_PARAMS = {"message_id"=>"139173", "text"=>"Callback URL test for user makevoid", "timestamp"=>"1408395151", "from"=>"393491598100"}
 
   before :all do
-    @user_numbers = ["9991234567"]
+    @user_numbers = ["393491598100", "393889058879"]
     @params = DEFAULT_PARAMS
     @user = User.create number: @user_numbers.first
+    @recipient = User.create number: @user_numbers.last
     puts "default user address: #{@user.address}"
   end
 
@@ -35,6 +36,12 @@ describe GatewayCallback do
   it "BALANCE" do
     @callback.message = "BALANCE"
     @callback.handle.should == "Your balance: 0.001 BTC"
+  end
+
+  it "SEND" do
+    @callback.message = "SEND 0.0001 BTC TO #{@user_numbers.last}"
+    @callback.handle.should == "You sent 0.0001 BTC TO #{@user_numbers.last}"
+    # check balance?
   end
 
 end

@@ -28,7 +28,7 @@ class GatewayCallback
     # TODO: send debugging reply "BALANCE max" => "the number was incorrect"
     reply = case @message
     when /^BALANCE/i then balance
-    when /^SEND/i    then send
+    when /^SEND/i    then deliver
     when /^HISTORY/i then history
     else
       "ERROR [TODO: add exception notification]"
@@ -42,7 +42,8 @@ class GatewayCallback
   REGEX = {
     balance:      /^BALANCE/i,
     balance_user: /^BALANCE\s+(\d+)/i, # support also btc addresses
-    deliver:      /^SEND\s+(\w+)\s+TO\s+(\d+)/i,
+    # deliver:      /^SEND\s+(\d+)\s+(\w+)\s+TO\s+(\d+)/i,
+    deliver:      /^SEND\s+(?<amount>\d+\.\d+)\s+(?<currency>\w+)\s+TO\s+(?<recipient>\d+)/i,
     history:      /^HISTORY/i,
     # TODO: pin protection
   }
@@ -75,7 +76,10 @@ class GatewayCallback
     wallet = Wallet.get @user
     return view("")
     balance = wallet.balance
-    ""
+    amount = match[:amount]
+    currency = match[:currency]
+    recipient = match[:recipient]
+    "You sent #{amount} #{currency} TO #{recipient}"
   end
 
   def history

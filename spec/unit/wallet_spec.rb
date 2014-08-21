@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-
-
 describe Wallet do
 
   it "creates a different valid hdw address for every user" do
@@ -13,4 +11,5 @@ describe Wallet do
     two.size.should == 34
     one.should_not ==  two
   end
+
 end

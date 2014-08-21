@@ -26,6 +26,8 @@
 
 %h1 Transactions (#{Transaction.count})
 
+%p last transaction: #{Transaction.last_sms_id || "none"}
+
 %p (received messages?)
 
 - for transaction in transactions
