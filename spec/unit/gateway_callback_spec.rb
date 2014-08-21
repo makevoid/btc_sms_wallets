@@ -44,4 +44,10 @@ describe GatewayCallback do
     # check balance?
   end
 
+  # SEND - TODO
+  # malformed
+  # currency not specified (btc, mbtc ...)
+  # not enough money 
+  # 
+
 end
