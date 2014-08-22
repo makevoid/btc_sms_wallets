@@ -93,11 +93,15 @@ class GatewayCallback
     match = @message.match REGEX[:deliver]
     return view("SEND REQUEST MALFORMED") unless match
 
-    wallet = Wallet.get @user
-    return view("")
-    balance   = wallet.balance
-    amount    = match[:amount]
-    currency  = match[:currency]
+    amount = match[:amount]
+    currency = match[:currency].downcase.to_sym
+    curr = Currency::CURRENCIES[currency]
+    return view("We can't guess the amount you want to transfer, please specify if you want to transfer #{amount} BTC or #{amount} mBTC in your SEND message.") unless curr
+
+    balance = @user.balance
+    amount_satoshi = curr.curr_to_satoshi amount
+    return view("There's not enough money in your account to send #{amount} #{currency}") if balance < amount_satoshi
+
     recipient = match[:recipient]
     "You sent #{amount} #{currency} TO #{recipient}"
   end

@@ -16,8 +16,8 @@ end
 class BChain
 
   HOST_BASE = "blockchain.info"
-  HOST  = "http://#{HOST_BASE}"
-  HOSTS = "https://#{HOST_BASE}"
+  HOST    = "http://#{HOST_BASE}"
+  HOST_S  = "https://#{HOST_BASE}"
 
   def self.balance(address)
     address = ExtApi.get url "/address/#{address}"
@@ -38,19 +38,26 @@ class BChain
   end
 
   def self.url(url_part)
-    "#{HOST}#{url_part}?format=json"
+    "#{HOST_S}#{url_part}?format=json"
   end
 
   BLOCKCHAIN_KEY = File.read(File.expand_path "~/.blockchain_info_key").strip
-  BSWB = File.read(File.expand_path "~/.btc_sms_wallet_blockchain").strip.split(0)
+  BSWB = File.read(File.expand_path "~/.btc_sms_wallet_blockchain").strip.split("|")
   # TODO: after test, put these in users, crypt password with sms code
   BLOCKCHAIN_GUID = BSWB[0]
   BLOCKCHAIN_PASS = BSWB[1]
 
-  def self.pay(user_id: user_id, password: password, address_to: address_to, amount: amount)
-    "#{HOST_S}/merchant/#{user_id}/payment?password=#{password}&to=#{address_to}&amount=#{amount}
+  # mm "1LQHpPzD8BxhhshB9usjaJd2XViRHM9meF"
+  # bc 1 "1XncTxwcWBYXBqGmedWCQvyBAANFdHJvX"
 
-" # &note=$note
+  def self.pay(user_id: user_id, password: password, address_to: address_to, amount: amount)
+    params = { password: password, to: address_to, amount: amount } # :note
+    ExtApi.post url("/merchant/#{user_id}/payment"), params
+    # :message, :tx_hash
+    # {"message"=>"Sent 0.0001 BTC to 1LQHpPzD8BxhhshB9usjaJd2XViRHM9meF", "tx_hash"=>"529e244e6f02c73d6e3e762670e7012c564d51d7c5bc825c331aa45cacf7098f"}
+
+    # We can change the world through innovation that extends out of market and human choices - Jeffrey Tucker - Crypto Convos #1 !yt
+
   end
 
   # use only to create wallets
