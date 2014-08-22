@@ -22,8 +22,19 @@ class BChain
   def self.balance(address)
     address = ExtApi.get url "/address/#{address}"
     # other infos: {"n_tx"=>0, "total_received"=>0, "total_sent"=>0, "txs"=>[]}
+    balance_format address
+  end
+
+  def self.balance_format(address)
     bal = (address["final_balance"] * 10**-8).to_f
     bal == 0 ? bal.to_i : bal
+  end
+
+  def self.transactions(address)
+    address = ExtApi.get url "/address/#{address}"
+    balance = balance_format address
+    transactions = []
+    { balance: balance, transactions: transactions }
   end
 
   def self.url(url_part)
@@ -32,6 +43,7 @@ class BChain
 
   BLOCKCHAIN_KEY = File.read(File.expand_path "~/.blockchain_info_key").strip
   BSWB = File.read(File.expand_path "~/.btc_sms_wallet_blockchain").strip.split(0)
+  # TODO: after test, put these in users, crypt password with sms code
   BLOCKCHAIN_GUID = BSWB[0]
   BLOCKCHAIN_PASS = BSWB[1]
 
@@ -50,3 +62,7 @@ class BChain
   end
 
 end
+
+
+
+    address = ExtApi.get url "/address/#{address}"

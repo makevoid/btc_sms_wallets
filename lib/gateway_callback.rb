@@ -1,4 +1,6 @@
-# todo: rename in SmsGatewayCallback ?
+class String # TODO: refine only for view() method
+  def unindent; gsub(/^#{match(/^\s+/)}/, "") end
+end
 
 class GatewayCallback
   # PROJECT_TITLE = "btc_sms_wallets"
@@ -22,14 +24,15 @@ class GatewayCallback
 
   def handle
     @user = User.first(number: @from)
-    return view("USER NOT FOUND - Reply with a message containing only the word: REGISTER to register to #{PROJECT_TITLE}") unless @user
+    return view("USER NOT FOUND - Reply with a message containing only the word: REGISTER to register to #{PROJECT_TITLE}") if !@user && @message !~ /^REGISTER/i
 
     # puts "Handing callback:"
     # TODO: send debugging reply "BALANCE max" => "the number was incorrect"
     reply = case @message
-    when /^BALANCE/i then balance
-    when /^SEND/i    then deliver
-    when /^HISTORY/i then history
+    when /^REGISTER/i then register
+    when /^BALANCE/i  then balance
+    when /^SEND/i     then deliver
+    when /^HISTORY/i  then history
     else
       "ERROR [TODO: add exception notification]"
     end
@@ -40,11 +43,13 @@ class GatewayCallback
 
 
   REGEX = {
-    balance:      /^BALANCE/i,
-    balance_user: /^BALANCE\s+(\d+)/i, # support also btc addresses
-    # deliver:      /^SEND\s+(\d+)\s+(\w+)\s+TO\s+(\d+)/i,
-    deliver:      /^SEND\s+(?<amount>\d+\.\d+)\s+(?<currency>\w+)\s+TO\s+(?<recipient>\d+)/i,
-    history:      /^HISTORY/i,
+    register:       /^REGISTER/i,
+    register_pass:  /^REGISTER\s+(\d+)/i,
+    balance:        /^BALANCE/i,
+    balance_user:   /^BALANCE\s+(\d+)/i, # support also btc addresses
+    # deliver:        /^SEND\s+(\d+)\s+(\w+)\s+TO\s+(\d+)/i,
+    deliver:        /^SEND\s+(?<amount>\d+\.\d+)\s+(?<currency>\w+)\s+TO\s+(?<rec ipient>\d+)/i,
+    history:        /^HISTORY/i,
     # TODO: pin protection
   }
 
@@ -55,6 +60,21 @@ class GatewayCallback
   end
 
   # actions
+
+  def register
+    # TODO
+    bc_wallet = BChain.create_wallet # saving password inside
+    User.create #...
+  end
+
+  def register_pass
+    # TODO
+    # password = match
+    #
+    bc_wallet = BChain.create_wallet password
+    bc_wallet_infos = { address: bc_wallet[:address], bc_guid: bc_wallet[:guid], bc_password: password }
+    User.create bc_wallet_infos
+  end
 
   def balance
     case @message
@@ -75,9 +95,9 @@ class GatewayCallback
 
     wallet = Wallet.get @user
     return view("")
-    balance = wallet.balance
-    amount = match[:amount]
-    currency = match[:currency]
+    balance   = wallet.balance
+    amount    = match[:amount]
+    currency  = match[:currency]
     recipient = match[:recipient]
     "You sent #{amount} #{currency} TO #{recipient}"
   end
@@ -86,6 +106,14 @@ class GatewayCallback
     match = @message.match REGEX[:history]
     return view("HISTORY REQUEST MALFORMED") unless match
 
+    view(
+      <<-EOF.unindent
+        BALANCE
+
+      EOF
+    )
+
+
   end
 
   private
@@ -93,9 +121,5 @@ class GatewayCallback
   def view(message)
     "#{message} [debug...]"
   end
-
-end
-
-class SMSApi
 
 end

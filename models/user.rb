@@ -9,7 +9,9 @@ class User
   property :number_label,   String, length: 20
   property :address_cache,  String
   property :created_at,     DateTime
-
+  # register to app with sms pass - registers to bc.info - hashes the password - store in db
+  property :bc_guid,        String
+  property :bc_password,    String
 
   property :balance_cached,   Integer # satoshis
 
