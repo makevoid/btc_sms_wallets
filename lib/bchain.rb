@@ -33,7 +33,13 @@ class BChain
   def self.transactions(address)
     address = ExtApi.get url "/address/#{address}"
     balance = balance_format address
-    transactions = []
+    transactions = address["txs"].map do |tx|
+      result    = tx["result"]
+      addr_in   = tx["inputs"].map{ |t| t["addr"] }
+      addr_out  = tx["out"   ].map{ |t| t["addr"] }
+      # addr_out: addr_out, addr_in: addr_out,
+      { result: result, addresses: (addr_in + addr_out) }
+    end
     { balance: balance, transactions: transactions }
   end
 

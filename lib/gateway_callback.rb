@@ -116,7 +116,8 @@ class GatewayCallback
       <<-EOF.unindent
         Your balance is: #{history[:balance]} BTC
         Transactions:
-        DATE AMOUNT to ADDRESS
+        DATE AMOUNT to/from ADDRESS
+        DATE AMOUNT MULTI
       EOF
     )
   end
