@@ -4,7 +4,7 @@ require 'spec_helper'
 class GatewayCallback
   attr_accessor :message
   def sms_send(reply)
-    puts "test: #{reply}"
+    puts "test SMS send: #{reply}"
   end
 end
 

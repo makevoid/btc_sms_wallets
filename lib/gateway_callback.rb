@@ -2,7 +2,8 @@ class String # TODO: refine only for view() method
   def unindent; gsub(/^#{match(/^\s+/)}/, "") end
 end
 
-class GatewayCallback
+class GatewayCallback # main class
+  
   # PROJECT_TITLE = "btc_sms_wallets"
   PROJECT_TITLE = "BTC SMS Wallet"
 
@@ -110,7 +111,7 @@ class GatewayCallback
     match = @message.match REGEX[:history]
     return view("HISTORY REQUEST MALFORMED") unless match
 
-    history =
+    history = BChain.transactions @user.address
 
     view(
       <<-EOF.unindent
