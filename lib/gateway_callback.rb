@@ -110,14 +110,15 @@ class GatewayCallback
     match = @message.match REGEX[:history]
     return view("HISTORY REQUEST MALFORMED") unless match
 
+    history =
+
     view(
       <<-EOF.unindent
-        BALANCE
-
+        Your balance is: #{history[:balance]} BTC
+        Transactions:
+        DATE AMOUNT to ADDRESS
       EOF
     )
-
-
   end
 
   private

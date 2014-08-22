@@ -72,4 +72,3 @@ end
 
 
 
-    address = ExtApi.get url "/address/#{address}"
