@@ -3,7 +3,7 @@ class String # TODO: refine only for view() method
 end
 
 class GatewayCallback # main class
-  
+
   # PROJECT_TITLE = "btc_sms_wallets"
   PROJECT_TITLE = "BTC SMS Wallet"
 
@@ -49,7 +49,7 @@ class GatewayCallback # main class
     balance:        /^BALANCE/i,
     balance_user:   /^BALANCE\s+(\d+)/i, # support also btc addresses
     # deliver:        /^SEND\s+(\d+)\s+(\w+)\s+TO\s+(\d+)/i,
-    deliver:        /^SEND\s+(?<amount>\d+\.\d+)\s+(?<currency>\w+)\s+TO\s+(?<rec ipient>\d+)/i,
+    deliver:        /^SEND\s+(?<amount>\d+\.\d+)\s+(?<currency>\w+)\s+TO\s+(?<recipient>\d+)/i,
     history:        /^HISTORY/i,
     # TODO: pin protection
   }
@@ -101,10 +101,17 @@ class GatewayCallback # main class
 
     balance = @user.balance
     amount_satoshi = curr.curr_to_satoshi amount
-    return view("There's not enough money in your account to send #{amount} #{currency}") if balance < amount_satoshi
+    return view("There's not enough money in your account to send #{amount} #{curr.label}") if balance < amount_satoshi
 
     recipient = match[:recipient]
-    "You sent #{amount} #{currency} TO #{recipient}"
+
+    transaction = { from: @user, amount: amount_satoshi, recipient: recipient, to: @user }
+    # BCHAIN SEND
+    # SMS SEND
+
+    Transaction.create transaction #
+    delivered!
+    "You sent #{amount} #{curr.label} TO #{recipient}"
   end
 
   def history
@@ -127,6 +134,11 @@ class GatewayCallback # main class
 
   def view(message)
     "#{message} [debug...]"
+  end
+
+  def delivered!
+    puts "marking as delivered!"
+    # log and notify here
   end
 
 end

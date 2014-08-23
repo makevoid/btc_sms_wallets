@@ -15,6 +15,8 @@ class User
 
   property :balance_cached,   Integer # satoshis
 
+  has, n :transactions
+
   before :create do
     self.number_label = self.number
     self.number = self.number.gsub(/\s+/, '')

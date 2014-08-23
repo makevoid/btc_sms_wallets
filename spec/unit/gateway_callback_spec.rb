@@ -44,10 +44,22 @@ describe GatewayCallback do
     # check balance?
   end
 
+  it "SEND calling BChain" do
+    @callback.message = "SEND 0.0001 BTC TO #{@user_numbers.last}"
+    # expect(@callback).to receive(:done)#.with(...)
+    @callback.should_receive :done
+
+    # TODO  @callback.bchain = BChain.new?
+    #       @callback.bchain.should_receive :pay
+  end
+
+  it "SEND sending SMS"
+  it "SEND logging the Transaction"
+
   # SEND - TODO
   # malformed
   # currency not specified (btc, mbtc ...)
-  # not enough money 
-  # 
+  # not enough money
+  #
 
 end

@@ -9,6 +9,12 @@ class Transaction# transaction log
     self.created_at = Time.now
   end
 
+  belongs_to :user
+  alias :from, :user
+  property :to, String # can be a bitcoin address or an user id, in the first version will be an address only
+
+
+
   # default scope order :sms_id desc
 
   def self.last_sms_id
